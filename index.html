@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#f5f1eb">
+    <title>Krama - Your Personal Stylist</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="brand-name">Krama</h1>
+            <h2 class="hero-title">
+                Your personal stylist, in your pocket.
+            </h2>
+            <p class="hero-description">
+                Organize your wardrobe and know exactly<br>
+                what to wear every day.
+            </p>
+            
+            <!-- App Preview -->
+            <div class="app-preview">
+                <img src="assets/images/Phone.png" alt="Krama App Interface" class="app-image">
+            </div>
+            
+            <!-- Email Signup -->
+            <div class="email-signup">
+                <div class="email-input-container">
+                    <input type="email" placeholder="Your email address" class="email-input">
+                    <button class="join-button">Join</button>
+                </div>
+                <p class="signup-text">"Join early users getting access first."</p>
+            </div>
+        </section>
+        
+        <!-- Photo to Wardrobe Section -->
+        <section class="photo-wardrobe-section">
+            <h2 class="photo-wardrobe-title">Turn a photo into your digital wardrobe</h2>
+            <p class="photo-wardrobe-description">
+                Upload a photo of your outfit, Aqina automatically<br>
+                detects and separates each piece.
+            </p>
+            
+            <div class="phone-mockups">
+                <div class="phone-mockup left-phone">
+                    <img src="assets/images/LeftOutfitPhoto-removebg-preview.png" alt="Upload outfit photo interface" class="phone-image" style="height: 500px">
+                </div>
+                <div class="arrow-container">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </div>
+                <div class="phone-mockup right-phone">
+                    <img src="assets/images/RightWardrobePhoto-removebg-preview.png" alt="Items added to wardrobe" class="phone-image" style="height: 534px">
+                </div>
+            </div>
+            
+            <p class="compatibility-text">Works with mirror selfies, outfit photos, and flat lays.</p>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon wardrobe-icon">
+                    <img src="assets/icons/Wardrobe.png" alt="Wardrobe Icon" style="height: 60px; width: 60px;">
+                </div>
+                <h3 class="feature-title">Digitize Your Wardrobe</h3>
+                <p class="feature-description">Add and organize all your clothes.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon suggestions-icon">
+                    <img src="assets/icons/Calendar.png" alt="Calendar Icon">
+                </div>
+                <h3 class="feature-title">Daily Outfit Suggestions</h3>
+                <p class="feature-description">Get recommendations based on your style.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon sustainability-icon">
+                    <img src="assets/icons/Outfit.png" alt="Outfit Icon">
+                </div>
+                <h3 class="feature-title">Build Better Outfits Effortlessly</h3>
+                <p class="feature-description">Mix and match pieces from your wardrobe.</p>
+            </div>
+        </section>
+        
+        <!-- Quote Section -->
+        <section class="quote-section">
+            <blockquote class="main-quote">
+                "Your wardrobe already has great outfits.<br>
+                Krama helps you find them."
+            </blockquote>
+            
+            <!-- Bottom Email Signup -->
+            <!-- <div class="bottom-signup">
+                <input type="email" placeholder="Your email address" class="email-input-bottom">
+                <button class="get-access-button">Get Early Access</button>
+            </div> -->
+        </section>
+
+        <!-- Preferences Section -->
+        <section class="preferences-section">
+            <h2 class="preferences-title">What would you like Krama to do ?</h2>
+            
+            <div class="preferences-grid">
+                <div class="preference-card">
+                    <span class="preference-text">AI Outfit Suggestions</span>
+                </div>
+                
+                <div class="preference-card">
+                    <span class="preference-text">Weather Based Outfits</span>
+                </div>
+                
+                <div class="preference-card">
+                    <span class="preference-text">Packing Planner</span>
+                </div>
+                
+                <div class="preference-card">
+                    <span class="preference-text">Style Analytics</span>
+                </div>
+            </div>
+            
+            <div class="other-idea-input">
+                <div class="idea-input-container">
+                    <span class="lightbulb-icon">💡</span>
+                    <input type="text" placeholder="Other idea..." class="idea-input">
+                </div>
+            </div>
+            
+            <button class="join-early-access-btn">Send Your Idea</button>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
