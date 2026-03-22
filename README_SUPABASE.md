@@ -1,4 +1,4 @@
-# Krama Landing Page - Supabase Setup Guide
+# Aaina Landing Page - Supabase Setup Guide
 
 ## 1. Supabase Configuration
 

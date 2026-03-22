@@ -1,9 +1,27 @@
-// Supabase configuration
-const SUPABASE_URL = 'https://ebfswznqbbacjykoswri.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViZnN3em5xYmJhY2p5a29zd3JpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5NjAyODYsImV4cCI6MjA3NDUzNjI4Nn0.gqj7oiamgoM7ymHr5PXA85PSd00KJiK0ug0jndNirNk';
+// Backend API configuration
+// Use environment variable if available (via build tool), otherwise use default
+const API_BASE_URL = typeof process !== 'undefined' && process.env?.API_URL 
+    ? process.env.API_URL 
+    : 'http://localhost:3000';
 
-// Initialize Supabase client
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// API client helper function
+async function callAPI(endpoint, payload) {
+    try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('API call error:', error);
+        throw error;
+    }
+}
 
 // Cute popup function
 function showCutePopup(title, message, type = 'success') {
@@ -90,25 +108,14 @@ async function handleEmailSignup() {
     joinButton.textContent = 'Joining...';
 
     try {
-        const { data, error } = await supabaseClient
-            .from('email_signups')
-            .insert([
-                { 
-                    email: email,
-                    created_at: new Date().toISOString()
-                }
-            ]);
+        // Call backend API instead of Supabase directly
+        const response = await callAPI('/api/signup', { email });
 
-        if (error) {
-            if (error.code === '23505') { // Unique constraint violation
-                showCutePopup('💝 Hey there!', 'This email is already on our VIP list! You\'re all set, beautiful! ✨', 'info');
-            } else {
-                console.error('Error saving email:', error);
-                showCutePopup('😊 Oops!', 'Something went wrong. Please try again, darling! 💕', 'error');
-            }
-        } else {
-            showCutePopup('🎉 Welcome to Krama!', 'Thank you for joining our style community! We\'ll be in touch with exclusive early access soon! 💖', 'success');
+        if (response.success) {
+            showCutePopup('🎉 Welcome to Aaina!', response.message, response.type);
             emailInput.value = ''; // Clear the input
+        } else {
+            showCutePopup('💌 ' + response.message.split('!')[0] + '!', response.message, response.type);
         }
     } catch (error) {
         console.error('Network error:', error);
@@ -148,26 +155,21 @@ async function handlePreferencesSubmission() {
     sendButton.textContent = 'Sending...';
 
     try {
-        const { data, error } = await supabaseClient
-            .from('user_preferences')
-            .insert([
-                {
-                    selected_preferences: selectedPreferences,
-                    custom_idea: customIdea || null,
-                    created_at: new Date().toISOString()
-                }
-            ]);
+        // Call backend API instead of Supabase directly
+        const response = await callAPI('/api/preferences', {
+            selectedPreferences,
+            customIdea: customIdea || null
+        });
 
-        if (error) {
-            console.error('Error saving preferences:', error);
-            showCutePopup('😊 Oops!', 'Something went wrong. Please try again, gorgeous! 💕', 'error');
-        } else {
-            showCutePopup('💎 Amazing!', 'Thank you for your feedback! Your brilliant ideas help us build the perfect Krama for you! 🌟', 'success');
+        if (response.success) {
+            showCutePopup('💎 Amazing!', response.message, response.type);
             // Reset form
             customIdeaInput.value = '';
             preferenceCards.forEach(card => {
                 card.classList.remove('selected');
             });
+        } else {
+            showCutePopup('😊 Oops!', response.message, response.type);
         }
     } catch (error) {
         console.error('Network error:', error);

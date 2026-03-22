@@ -1,4 +1,4 @@
--- Supabase Table Creation Queries for Krama Landing Page
+-- Supabase Table Creation Queries for Aaina Landing Page
 
 -- Table 1: Email Signups (for the "Join" button)
 CREATE TABLE email_signups (
