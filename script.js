@@ -71,11 +71,11 @@ function showCutePopup(title, message, type = 'success') {
     }, 10);
     
     // Auto close after 4 seconds for success messages
-    if (type === 'success') {
-        setTimeout(() => {
-            closeCutePopup();
-        }, 4000);
-    }
+    // if (type === 'success') {
+    //     setTimeout(() => {
+    //         closeCutePopup();
+    //     }, 4000);
+    // }
 }
 
 function closeCutePopup() {
