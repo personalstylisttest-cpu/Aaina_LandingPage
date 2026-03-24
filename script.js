@@ -1,8 +1,9 @@
 // Backend API configuration
-// Use environment variable if available (via build tool), otherwise use default
-const API_BASE_URL = typeof process !== 'undefined' && process.env?.API_URL 
-    ? process.env.API_URL 
-    : 'http://localhost:3000';
+// This project is served as plain static files, so browser-side env injection is not available.
+const API_BASE_URL = window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000'
+    : 'https://aaina-landing-page-backend.vercel.app';
 
 // API client helper function
 async function callAPI(endpoint, payload) {

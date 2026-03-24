@@ -5,6 +5,11 @@ const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const allowedOrigins = (process.env.CORS_ORIGIN ||
+    'http://localhost:5173,http://localhost:8000,http://127.0.0.1:5500,https://aaina-landing-page.vercel.app')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
 
 // Initialize Supabase client (credentials are safe on backend)
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -14,7 +19,13 @@ const supabaseClient = createClient(supabaseUrl, supabaseKey);
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error('Not allowed by CORS'));
+    },
     credentials: true
 }));
 
@@ -137,6 +148,13 @@ app.post('/api/preferences', async (req, res) => {
             type: 'error'
         });
     }
+});
+
+app.get('/', (req, res) => {
+    res.json({
+        status: 'Aaina backend is running',
+        health: '/api/health'
+    });
 });
 
 // Health check endpoint
