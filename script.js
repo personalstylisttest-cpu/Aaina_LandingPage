@@ -199,8 +199,32 @@ function initializePreferenceCards() {
     });
 }
 
+// Initialize flip cards
+function initializeFlipCards() {
+    const flipCards = document.querySelectorAll('.flip-card');
+    let currentFlippedCard = null;
+    
+    flipCards.forEach(card => {
+        card.addEventListener('click', function() {
+            // If a card is already flipped and it's not this one, flip it back
+            if (currentFlippedCard && currentFlippedCard !== this) {
+                currentFlippedCard.classList.remove('flipped');
+            }
+            
+            // Toggle the current card
+            this.classList.toggle('flipped');
+            
+            // Update the currently flipped card reference
+            currentFlippedCard = this.classList.contains('flipped') ? this : null;
+        });
+    });
+}
+
 // Initialize event listeners when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize flip cards
+    initializeFlipCards();
+    
     // Initialize preference card selection
     initializePreferenceCards();
     
