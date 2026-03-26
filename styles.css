@@ -516,6 +516,178 @@ body {
     border-radius: 2px;
 }
 
+
+/* Magic Signup Counter Pill */
+.signup-counter.magic-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 36px auto 48px auto;
+    padding: 20px 34px;
+    border-radius: 36px;
+    background: linear-gradient(120deg, #f7f5ef 80%, #f7f5efcc 100%);
+    box-shadow: 0 4px 32px 0 #e6e2d8, 0 0 0 2px #f3efe6;
+    position: relative;
+    width: min(100%, 34rem);
+    min-width: 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #3d3d2c;
+    text-align: center;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+.signup-counter .counter-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border-radius: 50%;
+    margin-right: 0;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px #e6e2d8;
+}
+
+.signup-counter .counter-icon svg {
+    display: block;
+    width: clamp(30px, 4vw, 36px);
+    height: auto;
+}
+
+.signup-counter .counter-main-text {
+    display: inline-block;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    max-width: 100%;
+    font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+    font-weight: 500;
+    color: #3d3d2c;
+    line-height: 1.2;
+}
+
+.signup-counter .counter-number {
+    color: #6b7c5a;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.signup-counter .counter-sub-text {
+    display: block;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    color: #3d3d2c;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+/* Sparkles */
+.signup-counter .counter-sparkle {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.7;
+    pointer-events: none;
+    user-select: none;
+    filter: blur(0.2px) brightness(1.2);
+}
+.signup-counter .sparkle-1 {
+    left: 18px;
+    top: -18px;
+    color: #f7c873;
+    font-size: 1.3rem;
+    animation: sparkle-float 2.5s infinite ease-in-out;
+}
+.signup-counter .sparkle-2 {
+    right: 24px;
+    top: 8px;
+    color: #f7c873;
+    font-size: 1.1rem;
+    animation: sparkle-float 2.2s infinite alternate;
+}
+.signup-counter .sparkle-3 {
+    right: 50%;
+    bottom: -18px;
+    color: #f7c873;
+    font-size: 1.6rem;
+    animation: sparkle-float 2.8s infinite alternate-reverse;
+}
+
+@media (max-width: 768px) {
+    .signup-counter.magic-pill {
+        width: min(100%, 30rem);
+        padding: 18px 24px;
+        gap: 14px;
+        margin: 28px auto 40px auto;
+    }
+}
+
+@media (max-width: 560px) {
+    .signup-counter.magic-pill {
+        width: min(100%, 24rem);
+        padding: 16px 18px;
+        gap: 12px;
+        border-radius: 28px;
+    }
+
+    .signup-counter .counter-main-text {
+        font-size: 1.1rem;
+        line-height: 1.3;
+        text-align: left;
+    }
+
+    .signup-counter .counter-number {
+        font-size: 1.65rem;
+        margin-right: 4px;
+    }
+
+    .signup-counter .counter-sub-text {
+        font-size: 0.98rem;
+        margin-top: 4px;
+    }
+
+    .signup-counter .counter-sparkle {
+        font-size: 1.1rem;
+    }
+
+    .signup-counter .sparkle-1 {
+        left: 12px;
+        top: -12px;
+    }
+
+    .signup-counter .sparkle-2 {
+        right: 16px;
+        top: 8px;
+    }
+
+    .signup-counter .sparkle-3 {
+        bottom: -12px;
+    }
+}
+
+@media (max-width: 360px) {
+    .signup-counter.magic-pill {
+        width: min(100%, 19rem);
+        padding: 16px 14px;
+        gap: 10px;
+    }
+
+    .signup-counter .counter-main-text {
+        font-size: 0.96rem;
+    }
+
+    .signup-counter .counter-number {
+        font-size: 1.4rem;
+    }
+}
+
+@keyframes sparkle-float {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    50% { transform: translateY(-8px) scale(1.15); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 0.7; }
+}
+
 /* Email Signup */
 .email-signup {
     margin-top: 40px;

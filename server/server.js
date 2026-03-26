@@ -35,6 +35,39 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
+// ============= Get Email Signup Count Endpoint =============
+app.get('/api/signup-count', async (req, res) => {
+    try {
+        // Get count from email_signups table
+        const { data, error, count } = await supabaseClient
+            .from('email_signups')
+            .select('*', { count: 'exact', head: true });
+        
+        console.log('Supabase Count response:', { data, error, count });
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({
+                success: false,
+                count: 0,
+                message: 'Error fetching count'
+            });
+        }
+
+        res.json({
+            success: true,
+            count: count || 0
+        });
+    } catch (error) {
+        console.error('Server error:', error);
+        res.status(500).json({
+            success: false,
+            count: 0,
+            message: 'Server error'
+        });
+    }
+});
+
 // ============= Email Signup Endpoint =============
 app.post('/api/signup', async (req, res) => {
     try {

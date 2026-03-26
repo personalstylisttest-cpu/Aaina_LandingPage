@@ -88,6 +88,34 @@ function closeCutePopup() {
     }
 }
 
+// Fetch and display signup count
+async function loadSignupCount() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/signup-count`);
+        const data = await response.json();
+        console.log('Signup count response:', data);
+        if (data.success) {
+            const countElement = document.getElementById('signupCount');
+            if (countElement) {
+                const totalCount = (data.count || 0) + 100;
+                countElement.textContent = totalCount;
+                console.log('Updated count to:', totalCount);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading signup count:', error);
+    }
+}
+
+// Update signup count display
+function updateSignupCount() {
+    const countElement = document.getElementById('signupCount');
+    if (countElement) {
+        const currentCount = parseInt(countElement.textContent);
+        countElement.textContent = currentCount + 1;
+    }
+}
+
 // Handle email signup (Join button)
 async function handleEmailSignup() {
     const emailInput = document.querySelector('.email-input');
@@ -115,6 +143,7 @@ async function handleEmailSignup() {
         if (response.success) {
             showCutePopup('🎉 Welcome to Aaina!', response.message, response.type);
             emailInput.value = ''; // Clear the input
+            updateSignupCount(); // Update the counter
         } else {
             showCutePopup('💌 ' + response.message.split('!')[0] + '!', response.message, response.type);
         }
@@ -222,6 +251,9 @@ function initializeFlipCards() {
 
 // Initialize event listeners when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Load signup count
+    loadSignupCount();
+    
     // Initialize flip cards
     initializeFlipCards();
     
