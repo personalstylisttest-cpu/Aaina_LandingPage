@@ -77,6 +77,7 @@ app.post('/api/signup', async (req, res) => {
         if (!email || !email.trim()) {
             return res.status(400).json({
                 success: false,
+                existing: false,
                 message: 'Email is required',
                 type: 'warning'
             });
@@ -85,6 +86,7 @@ app.post('/api/signup', async (req, res) => {
         if (!isValidEmail(email.trim())) {
             return res.status(400).json({
                 success: false,
+                existing: false,
                 message: 'Invalid email format',
                 type: 'warning'
             });
@@ -104,6 +106,7 @@ app.post('/api/signup', async (req, res) => {
             if (error.code === '23505') { // Unique constraint violation
                 return res.status(200).json({
                     success: true,
+                    existing: true,
                     message: 'This email is already on our VIP list! You\'re all set, beautiful! ✨',
                     type: 'info'
                 });
@@ -111,6 +114,7 @@ app.post('/api/signup', async (req, res) => {
                 console.error('Supabase error:', error);
                 return res.status(500).json({
                     success: false,
+                    existing: false,
                     message: 'Something went wrong. Please try again, darling! 💕',
                     type: 'error'
                 });
@@ -120,6 +124,7 @@ app.post('/api/signup', async (req, res) => {
         res.json({
             success: true,
             message: 'Thank you for joining our style community! We\'ll be in touch with exclusive early access soon! 💖',
+            existing: false,
             type: 'success'
         });
 
@@ -127,6 +132,7 @@ app.post('/api/signup', async (req, res) => {
         console.error('Server error:', error);
         res.status(500).json({
             success: false,
+            existing: false,
             message: 'Server error. Please try again later.',
             type: 'error'
         });

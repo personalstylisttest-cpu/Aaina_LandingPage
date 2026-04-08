@@ -143,7 +143,9 @@ async function handleEmailSignup() {
         if (response.success) {
             showCutePopup('🎉 Welcome to Aaina!', response.message, response.type);
             emailInput.value = ''; // Clear the input
-            updateSignupCount(); // Update the counter
+            if(!response.existing){
+                updateSignupCount(); // Update the counter
+            }
         } else {
             showCutePopup('💌 ' + response.message.split('!')[0] + '!', response.message, response.type);
         }
