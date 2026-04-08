@@ -1592,7 +1592,7 @@ body {
 }
 
 .preference-card:hover {
-    border-color: #2c2c2c;
+    /* border-color: #2c2c2c; */
     background: #f9f9f9;
 }
 
