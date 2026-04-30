@@ -251,6 +251,84 @@ function initializeFlipCards() {
     });
 }
 
+function initializeOutfitCarousel() {
+    const carousel = document.getElementById('outfitCarousel');
+    if (!carousel) {
+        return;
+    }
+
+    const getSlides = () => Array.from(carousel.querySelectorAll('.outfit-carousel-image'));
+    let currentIndex = 0;
+    let autoScrollTimer = null;
+    let autoScrollStartTimer = null;
+
+    function scrollToIndex(index) {
+        const slides = getSlides();
+        if (!slides.length) {
+            return;
+        }
+
+        currentIndex = (index + slides.length) % slides.length;
+        const targetSlide = slides[currentIndex];
+        carousel.scrollTo({
+            left: targetSlide.offsetLeft - carousel.offsetLeft,
+            behavior: 'smooth'
+        });
+    }
+
+    function moveToNextSlide() {
+        scrollToIndex(currentIndex + 1);
+    }
+
+    function restartAutoScroll(delay = 2000) {
+        if (autoScrollTimer) {
+            clearInterval(autoScrollTimer);
+        }
+        if (autoScrollStartTimer) {
+            clearTimeout(autoScrollStartTimer);
+        }
+
+        autoScrollStartTimer = setTimeout(() => {
+            moveToNextSlide();
+            autoScrollTimer = setInterval(moveToNextSlide, 2000);
+        }, delay);
+    }
+
+    let scrollDebounceTimer = null;
+    carousel.addEventListener('scroll', () => {
+        const slides = getSlides();
+        if (!slides.length) {
+            return;
+        }
+
+        if (scrollDebounceTimer) {
+            clearTimeout(scrollDebounceTimer);
+        }
+
+        scrollDebounceTimer = setTimeout(() => {
+            const carouselLeft = carousel.scrollLeft;
+            let closestIndex = 0;
+            let minDistance = Infinity;
+
+            slides.forEach((slide, index) => {
+                const distance = Math.abs((slide.offsetLeft - carousel.offsetLeft) - carouselLeft);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestIndex = index;
+                }
+            });
+
+            currentIndex = closestIndex;
+        }, 120);
+    }, { passive: true });
+
+    ['pointerdown', 'touchstart', 'wheel'].forEach((eventName) => {
+        carousel.addEventListener(eventName, () => restartAutoScroll(2000), { passive: true });
+    });
+
+    restartAutoScroll(500);
+}
+
 // Initialize event listeners when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Load signup count
@@ -258,6 +336,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize flip cards
     initializeFlipCards();
+
+    // Initialize outfit carousel
+    initializeOutfitCarousel();
     
     // Initialize preference card selection
     initializePreferenceCards();

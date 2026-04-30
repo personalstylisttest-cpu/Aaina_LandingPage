@@ -4,12 +4,61 @@
 CREATE TABLE email_signups (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    email_verified BOOLEAN NOT NULL DEFAULT false,
+    email_verified_at TIMESTAMP WITH TIME ZONE,
+    verification_token TEXT UNIQUE,
+    verification_email_sent_at TIMESTAMP WITH TIME ZONE,
+    email_status TEXT NOT NULL DEFAULT 'pending',
+    email_event_type TEXT,
+    email_last_event_at TIMESTAMP WITH TIME ZONE,
+    email_bounced_at TIMESTAMP WITH TIME ZONE,
+    resend_email_id TEXT UNIQUE,
+    last_email_error TEXT
 );
 
 -- Add index for faster email lookups
 CREATE INDEX idx_email_signups_email ON email_signups(email);
 CREATE INDEX idx_email_signups_created_at ON email_signups(created_at);
+CREATE INDEX idx_email_signups_status ON email_signups(email_status);
+CREATE INDEX idx_email_signups_verified ON email_signups(email_verified);
+
+-- Optional check constraint to keep statuses consistent
+ALTER TABLE email_signups
+ADD CONSTRAINT email_signups_email_status_check
+CHECK (
+    email_status IN (
+        'pending',
+        'send_failed',
+        'sent',
+        'delivered',
+        'delivery_delayed',
+        'opened',
+        'clicked',
+        'bounced',
+        'complained',
+        'verified'
+    )
+);
+
+-- Migration block for existing projects (safe to run on an existing table)
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS email_verified BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS email_verified_at TIMESTAMP WITH TIME ZONE;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS verification_token TEXT;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS verification_email_sent_at TIMESTAMP WITH TIME ZONE;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS email_status TEXT NOT NULL DEFAULT 'pending';
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS email_event_type TEXT;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS email_last_event_at TIMESTAMP WITH TIME ZONE;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS email_bounced_at TIMESTAMP WITH TIME ZONE;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS resend_email_id TEXT;
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS last_email_error TEXT;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_email_signups_verification_token ON public.email_signups(verification_token) WHERE verification_token IS NOT NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS idx_email_signups_resend_email_id ON public.email_signups(resend_email_id) WHERE resend_email_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_email_signups_status ON public.email_signups(email_status);
+CREATE INDEX IF NOT EXISTS idx_email_signups_verified ON public.email_signups(email_verified);
 
 -- Table 2: User Preferences (for the "Send Your Idea" button)
 CREATE TABLE user_preferences (

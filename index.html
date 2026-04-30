@@ -62,15 +62,37 @@
             
             <div class="phone-mockups">
                 <div class="phone-mockup left-phone">
-                    <img src="assets/images/LeftOutfitPhoto-removebg-preview.png" alt="Upload outfit photo interface" class="phone-image" style="height: 500px">
+                    <div class="outfit-carousel-container" aria-label="Outfit photo examples">
+                        <div class="outfit-carousel" id="outfitCarousel">
+                            <img src="assets/images/style-photo-1.png" alt="Black strappy flat sandal" class="outfit-carousel-image">
+                            <img src="assets/images/style-photo-2.png" alt="Black t-shirt" class="outfit-carousel-image">
+                            <img src="assets/images/style-photo-3.png" alt="Casual outfit with black top and denim jeans" class="outfit-carousel-image">
+                            <img src="assets/images/style-photo-4.png" alt="Black dress with slit and heels" class="outfit-carousel-image">
+                            <img src="assets/images/style-photo-5.png" alt="Black sandals on patterned floor" class="outfit-carousel-image">
+                            <img src="assets/images/style-photo-6.png" alt="Yellow button-down dress on bed" class="outfit-carousel-image">
+                            <img src="assets/images/style-photo-7.png" alt="Red kurti with jeans" class="outfit-carousel-image">
+                            <img src="assets/images/style-photo-8.png" alt="White embroidered kurti with jeans" class="outfit-carousel-image">
+                            <img src="assets/images/style-photo-9.png" alt="Black trousers on bed" class="outfit-carousel-image">
+                        </div>
+                    </div>
                 </div>
                 <div class="arrow-container">
-                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                    <div class="transfer-ui" aria-label="Aaina processing flow">
+                        <span class="transfer-label">Extracting items</span>
+                        <div class="transfer-dots" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="phone-mockup right-phone">
-                    <img src="assets/images/RightWardrobePhoto-removebg-preview.png" alt="Items added to wardrobe" class="phone-image" style="height: 534px">
+                    <div class="phone-frame-wrapper">
+                        <video class="phone-video" autoplay muted loop playsinline>
+                            <source src="assets/images/phone_video_f5f1eb.mp4" type="video/mp4">
+                        </video>
+                        <!-- <img src="assets/images/mock_phone.png" class="phone-frame-img" alt="" draggable="false"> -->
+                    </div>
                 </div>
             </div>
             
@@ -186,6 +208,6 @@
             <button class="join-early-access-btn">Send Your Idea</button>
         </section>
     </main>
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script>
 </body>
 </html>

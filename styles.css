@@ -772,38 +772,211 @@ body {
 }
 
 .phone-mockups {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 500px) auto minmax(0, 340px);
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    column-gap: 28px;
+    row-gap: 28px;
     margin-bottom: 10px;
-    flex-wrap: wrap;
+}
+
+.phone-mockups > * {
+    min-width: 0;
 }
 
 .phone-mockup {
     position: relative;
-    max-width: 250px;
     width: 100%;
+    min-width: 0;
+}
+
+.left-phone {
+    width: min(100%, 500px);
+    max-width: 500px;
+}
+
+.right-phone {
+    width: min(100%, 340px);
+    max-width: 340px;
+}
+
+.outfit-carousel-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    background: #ebe6df;
+}
+
+.outfit-carousel {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.outfit-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+/* Phone mockup using real PNG image overlay */
+/*
+ * Image: 1024×1536 · screen inner: x=196 y=71 w=630 h=1357 rx=20
+ * Dynamic island: x=405 y=89 w=212 h=56 (capsule rx=28)
+ */
+.phone-frame-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+}
+
+/*
+ * SVG mask: evenodd compound path
+ *   path 1 (1 crossing) = phone frame opaque
+ *   path 2 (2 crossings) = screen hole transparent
+ *   path 3 (3 crossings) = dynamic island opaque
+ */
+.phone-frame-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 2;
+    pointer-events: none;
+    user-select: none;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1536'%3E%3Cpath fill-rule='evenodd' fill='white' d='M0 0H1024V1536H0Z M216 71H806A20 20 0 0 1 826 91V1408A20 20 0 0 1 806 1428H216A20 20 0 0 1 196 1408V91A20 20 0 0 1 216 71Z M433 89H589A28 28 0 0 1 617 117A28 28 0 0 1 589 145H433A28 28 0 0 1 405 117A28 28 0 0 1 433 89Z'/%3E%3C/svg%3E");
+    -webkit-mask-size: 100% 100%;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1536'%3E%3Cpath fill-rule='evenodd' fill='white' d='M0 0H1024V1536H0Z M216 71H806A20 20 0 0 1 826 91V1408A20 20 0 0 1 806 1428H216A20 20 0 0 1 196 1408V91A20 20 0 0 1 216 71Z M433 89H589A28 28 0 0 1 617 117A28 28 0 0 1 589 145H433A28 28 0 0 1 405 117A28 28 0 0 1 433 89Z'/%3E%3C/svg%3E");
+    mask-size: 100% 100%;
+}
+
+/* Video fills exactly the screen cut-out */
+.phone-video {
+    position: absolute;
+    top: 4.62%;     /* 71 / 1536 */
+    left: 19.14%;   /* 196 / 1024 */
+    width: 61.52%;  /* 630 / 1024 */
+    height: 88.35%; /* 1357 / 1536 */
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 3% / 1.5%;
+    z-index: 1;
+    display: block;
+}
+
+
+.outfit-carousel-image {
+    flex: 0 0 76%;
+    max-width: 76%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    border-radius: 14px;
+    scroll-snap-align: start;
+    user-select: none;
 }
 
 .phone-image {
     width: 100%;
     height: auto;
     max-width: 250px;
+    display: block;
+}
+
+.right-phone .phone-image {
+    max-width: 100%;
+    width: 100%;
+    height: auto !important;
 }
 
 .arrow-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 40px;
+    min-width: 110px;
+    flex-shrink: 0;
 }
 
-.arrow-icon {
-    width: 32px;
-    height: 32px;
-    color: #666;
-    stroke-width: 2;
+/* Keep this section stable across breakpoints:
+   desktop = single row, tablet/mobile = strict stack */
+@media (max-width: 768px) {
+    .phone-mockups {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        row-gap: 22px;
+    }
+
+    .arrow-container {
+        width: auto;
+        min-width: 0;
+        margin: 0;
+    }
+
+    .left-phone {
+        width: min(100%, 420px);
+        max-width: min(100%, 420px);
+    }
+
+    .right-phone {
+        width: min(100%, 320px);
+        max-width: 320px;
+    }
+}
+
+.transfer-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #6b7c5a 0%, #8fa17c 100%);
+    color: #fff;
+    border-radius: 999px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 18px rgba(107, 124, 90, 0.28);
+}
+
+.transfer-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.transfer-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.transfer-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    animation: transfer-pulse 1.2s infinite ease-in-out;
+}
+
+.transfer-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.transfer-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes transfer-pulse {
+    0%, 80%, 100% {
+        transform: scale(0.7);
+        opacity: 0.45;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .compatibility-text {
@@ -1174,7 +1347,7 @@ body {
     .phone-mockups {
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 22px;
         margin-bottom: 40px;
     }
     
@@ -1197,16 +1370,23 @@ body {
     .phone-mockup {
         max-width: 220px;
     }
-    
+
+    .left-phone {
+        max-width: min(100%, 420px);
+    }
+
+    .right-phone {
+        max-width: 320px;
+    }
+
     .phone-image {
         max-height: 450px;
     }
-    
+
     .arrow-container {
-        transform: rotate(90deg);
-        margin: 15px 0;
+        margin: 0;
     }
-    
+
     .phone {
         transform: none !important;
         width: 240px;
@@ -1426,18 +1606,40 @@ body {
     .phone-mockup {
         max-width: 180px;
     }
+
+    .left-phone {
+        max-width: min(100%, 320px);
+    }
+
+    .right-phone {
+        max-width: 295px;
+    }
+
+    .outfit-carousel {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    .outfit-carousel-image {
+        flex-basis: 80%;
+        max-width: 80%;
+        border-radius: 12px;
+    }
     
     .phone-image {
         max-height: 380px;
     }
-    
+
     .arrow-container {
-        margin: 12px 0;
+        margin: 0;
     }
-    
-    .arrow-icon {
-        width: 28px;
-        height: 28px;
+
+    .transfer-ui {
+        padding: 10px 14px;
+    }
+
+    .transfer-label {
+        font-size: 11px;
     }
     
     .compatibility-text {
@@ -1445,7 +1647,7 @@ body {
         margin-top: 15px;
         padding: 0 10px;
     }
-    
+
     .features {
         display: grid;
         grid-template-columns: 1fr;
@@ -1632,11 +1834,16 @@ body {
 
 .idea-input {
     flex: 1;
+    min-width: 0;
     border: none;
     outline: none;
     font-size: 16px;
+    line-height: 1.4;
     background: transparent;
     color: #2c2c2c;
+    caret-color: #2c2c2c;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .idea-input::placeholder {
@@ -1738,6 +1945,19 @@ body {
     .phone-mockup {
         max-width: 160px;
     }
+
+    .left-phone {
+        max-width: min(100%, 280px);
+    }
+
+    .right-phone {
+        max-width: 265px;
+    }
+
+    .outfit-carousel-image {
+        flex-basis: 85%;
+        max-width: 85%;
+    }
     
     .phone-image {
         max-height: 340px;
@@ -1763,12 +1983,155 @@ body {
     }
 }
 
+@media (min-width: 481px) and (max-width: 551px) {
+    .container {
+        max-width: 100%;
+        padding: 24px 16px;
+    }
+
+    .photo-wardrobe-section {
+        padding: 42px 0 24px;
+    }
+
+    .photo-wardrobe-title {
+        font-size: 30px;
+    }
+
+    .photo-wardrobe-description {
+        font-size: 16px;
+        margin-bottom: 34px;
+        padding: 0 12px;
+    }
+
+    .phone-mockups {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        max-width: 360px;
+        margin: 0 auto 18px;
+        row-gap: 18px;
+    }
+
+    .phone-mockup {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .left-phone {
+        max-width: 100%;
+    }
+
+    .right-phone {
+        max-width: 260px;
+    }
+
+    .outfit-carousel {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    .outfit-carousel-image {
+        flex-basis: 72%;
+        max-width: 72%;
+    }
+
+    .arrow-container {
+        width: auto;
+        margin: 0 auto;
+    }
+
+    .transfer-ui {
+        padding: 10px 14px;
+    }
+
+    .phone-image {
+        max-width: 228px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 552px) and (max-width: 839px) {
+    .container {
+        max-width: 100%;
+        padding: 28px 20px;
+    }
+
+    .photo-wardrobe-section {
+        padding: 50px 0 28px;
+    }
+
+    .phone-mockups {
+        grid-template-columns:
+            minmax(0, clamp(220px, 45vw, 360px))
+            auto
+            minmax(0, clamp(155px, 27vw, 240px));
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        column-gap: 12px;
+        row-gap: 0;
+        max-width: min(100%, 720px);
+        margin: 0 auto 18px;
+    }
+
+    .phone-mockup {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .left-phone {
+        width: clamp(220px, 45vw, 360px);
+        max-width: clamp(220px, 45vw, 360px);
+    }
+
+    .right-phone {
+        width: clamp(155px, 27vw, 240px);
+        max-width: clamp(155px, 27vw, 240px);
+    }
+
+    .outfit-carousel {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    .outfit-carousel-image {
+        flex-basis: 72%;
+        max-width: 72%;
+    }
+
+    .arrow-container {
+        width: auto;
+        min-width: 0;
+        margin: 0;
+    }
+
+    .transfer-ui {
+        padding: 10px 14px;
+        gap: 6px;
+    }
+
+    .transfer-label {
+        font-size: 11px;
+    }
+
+    .transfer-dots {
+        gap: 5px;
+    }
+
+    .transfer-dots span {
+        width: 7px;
+        height: 7px;
+    }
+
+    .phone-image {
+        max-width: 100%;
+    }
+}
+
 /* iOS specific optimizations */
 @supports (-webkit-touch-callout: none) {
     .email-input,
     .idea-input {
         font-size: 16px !important; /* Prevent zoom on iOS */
-        transform: translateZ(0); /* Enable hardware acceleration */
     }
     
     .join-button,
@@ -2061,5 +2424,79 @@ body {
     .popup-close-btn {
         padding: 10px 28px;
         font-size: 14px;
+    }
+}
+
+/* Final layout lock for the photo-to-wardrobe section:
+   row from 600px+, column below 600px, never mixed */
+.photo-wardrobe-section .phone-mockups {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 16px;
+    width: min(100%, 640px);
+    margin: 0 auto 18px;
+}
+
+.photo-wardrobe-section .phone-mockups > .phone-mockup,
+.photo-wardrobe-section .phone-mockups > .arrow-container {
+    min-width: 0;
+}
+
+.photo-wardrobe-section .phone-mockups > .phone-mockup {
+    flex: 0 1 auto;
+    width: 100%;
+}
+
+.photo-wardrobe-section .left-phone {
+    width: clamp(140px, 20vw, 240px);
+    max-width: 240px;
+}
+
+/* right-phone is 2:3 ratio; width ~95% of left so both reach the same visual height */
+.photo-wardrobe-section .right-phone {
+    width: clamp(133px, 19vw, 228px);
+    max-width: 228px;
+}
+
+.photo-wardrobe-section .arrow-container {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+
+.photo-wardrobe-section .transfer-ui {
+    padding: 10px 14px;
+}
+
+@media (max-width: 599px) {
+    .photo-wardrobe-section .phone-mockups {
+        flex-direction: column;
+        gap: 18px;
+        width: min(100%, 280px);
+    }
+
+    .photo-wardrobe-section .left-phone,
+    .photo-wardrobe-section .right-phone {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .photo-wardrobe-section .arrow-container {
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 600px) {
+    .photo-wardrobe-section .phone-mockups {
+        flex-direction: row;
     }
 }
