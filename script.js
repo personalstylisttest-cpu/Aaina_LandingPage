@@ -5,6 +5,10 @@ const API_BASE_URL = window.location.hostname === 'localhost' ||
     ? 'http://localhost:3000'
     : 'https://aaina-landing-page-backend.vercel.app';
 
+function getRefSource() {
+    return new URLSearchParams(window.location.search).get('ref') || null;
+}
+
 // API client helper function
 async function callAPI(endpoint, payload) {
     try {
@@ -138,7 +142,7 @@ async function handleEmailSignup() {
 
     try {
         // Call backend API instead of Supabase directly
-        const response = await callAPI('/api/signup', { email });
+        const response = await callAPI('/api/signup', { email, source: getRefSource() });
 
         if (response.success) {
             showCutePopup('🎉 Welcome to Aaina!', response.message, response.type);

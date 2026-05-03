@@ -130,7 +130,7 @@ app.get('/api/signup-count', async (req, res) => {
 // ============= Email Signup Endpoint =============
 app.post('/api/signup', async (req, res) => {
     try {
-        const { email } = req.body;
+        const { email, source } = req.body;
 
         // Validate email
         if (!email || !email.trim()) {
@@ -210,6 +210,7 @@ app.post('/api/signup', async (req, res) => {
                         verification_token: verificationToken,
                         email_status: 'pending',
                         email_verified: false,
+                        source: source || null,
                         created_at: new Date().toISOString(),
                         updated_at: new Date().toISOString()
                     }
