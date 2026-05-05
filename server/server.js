@@ -70,12 +70,12 @@ async function sendVerificationEmail(email, verificationToken) {
 
     try {
         const info = await smtpTransport.sendMail({
-            from: `"Aaina" <${gmailUser}>`,
+            from: `"Mirra" <${gmailUser}>`,
             to: email,
-            subject: 'Welcome to Aaina - Confirm your email',
+            subject: 'Welcome to Mirra - Confirm your email',
             html: `
                 <p>Hi there,</p>
-                <p>Thank you for joining Aaina. Please confirm your email to complete signup.</p>
+                <p>Thank you for joining Mirra. Please confirm your email to complete signup.</p>
                 <p><a href="${verificationUrl}">Confirm my email</a></p>
                 <p>If the button does not work, paste this URL in your browser:</p>
                 <p>${verificationUrl}</p>
@@ -375,7 +375,7 @@ app.post('/api/preferences', async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Thank you for your feedback! Your brilliant ideas help us build the perfect Aaina for you! 🌟',
+            message: 'Thank you for your feedback! Your brilliant ideas help us build the perfect Mirra for you! 🌟',
             type: 'success'
         });
 
@@ -391,7 +391,7 @@ app.post('/api/preferences', async (req, res) => {
 
 app.get('/', (req, res) => {
     res.json({
-        status: 'Aaina backend is running',
+        status: 'Mirra backend is running',
         health: '/api/health'
     });
 });
@@ -403,6 +403,6 @@ app.get('/api/health', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Aaina Backend Server running on http://localhost:${PORT}`);
+    console.log(`🚀 Mirra Backend Server running on http://localhost:${PORT}`);
     console.log(`📝 Make sure to copy .env.example to .env and add your Supabase credentials`);
 });

@@ -1,7 +1,7 @@
 {
   "name": "aaina-backend",
   "version": "1.0.0",
-  "description": "Secure backend API for Aaina Personal Stylist",
+  "description": "Secure backend API for Mirra Personal Stylist",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

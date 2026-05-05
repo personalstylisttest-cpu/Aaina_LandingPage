@@ -145,7 +145,7 @@ async function handleEmailSignup() {
         const response = await callAPI('/api/signup', { email, source: getRefSource() });
 
         if (response.success) {
-            showCutePopup('🎉 Welcome to Aaina!', response.message, response.type);
+            showCutePopup('🎉 Welcome to Mirra!', response.message, response.type);
             emailInput.value = ''; // Clear the input
             if(!response.existing){
                 updateSignupCount(); // Update the counter
