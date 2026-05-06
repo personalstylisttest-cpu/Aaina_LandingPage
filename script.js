@@ -101,7 +101,7 @@ async function loadSignupCount() {
         if (data.success) {
             const countElement = document.getElementById('signupCount');
             if (countElement) {
-                const totalCount = (data.count || 0) + 100;
+                const totalCount = (data.count || 0);
                 countElement.textContent = totalCount;
                 console.log('Updated count to:', totalCount);
             }
