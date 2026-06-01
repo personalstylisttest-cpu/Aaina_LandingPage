@@ -2518,3 +2518,9 @@ body {
     color: #6b7c5a;
     text-decoration: underline;
 }
+
+.footer-separator {
+    margin: 0 10px;
+    color: #ccc;
+    font-size: 13px;
+}
