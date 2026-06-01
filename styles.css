@@ -2500,3 +2500,21 @@ body {
         flex-direction: row;
     }
 }
+
+.site-footer {
+    text-align: center;
+    padding: 24px 16px;
+    background-color: #f5f1eb;
+}
+
+.footer-link {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 13px;
+    color: #999;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #6b7c5a;
+    text-decoration: underline;
+}
