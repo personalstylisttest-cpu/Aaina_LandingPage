@@ -241,6 +241,7 @@ img {
 .store-pill {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     padding: 12px 22px;
     border-radius: 14px;
@@ -1102,23 +1103,58 @@ img {
     }
 
     .final-cta-buttons {
-        flex-direction: column;
-        align-items: stretch;
+        gap: 8px;
     }
 
-    .store-pill--outline-dark {
-        justify-content: center;
+    .final-cta-buttons .store-pill {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 8px 10px;
+        gap: 6px;
+    }
+
+    .final-cta-buttons .store-pill svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+    }
+
+    .final-cta-buttons .store-pill span {
+        font-size: 8.5px;
+    }
+
+    .final-cta-buttons .store-pill span strong {
+        font-size: 10.5px;
     }
 
     .final-cta-badges {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
+        gap: 6px;
+        align-items: flex-start;
     }
 
     .final-cta-badge {
+        flex: 1 1 0;
+        min-width: 0;
+        flex-direction: column;
+        text-align: center;
+        gap: 6px;
+        padding: 0;
         border-right: none;
-        justify-content: center;
+    }
+
+    .final-cta-badge svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .final-cta-badge strong {
+        font-size: 10.5px;
+        line-height: 1.25;
+    }
+
+    .final-cta-badge span {
+        font-size: 9px;
+        line-height: 1.25;
     }
 
     .footer-inner {
