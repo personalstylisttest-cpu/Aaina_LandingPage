@@ -6,222 +6,302 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#f5f1eb">
-    <title>Mirra - Your Personal Stylist</title>
+    <meta name="theme-color" content="#f6f2ea">
+    <title>Mirra AI - Shop smarter. Start from your style.</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <main class="container">
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="#" class="logo"><img src="assets/images/LogoLightBackground-cropped.png" alt="Mirra AI" class="logo-img"></a>
+
+            <nav class="main-nav" id="mainNav">
+                <a href="#import">Import Wardrobe</a>
+                <a href="#style">AI Stylist</a>
+                <a href="#shop">Shop</a>
+            </nav>
+
+            <div class="header-ctas">
+                <a href="https://apps.apple.com/in/app/mirra-ai-shopping-assistant/id6781397977" class="store-btn store-btn--dark" target="_blank" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.536c-.02-2.11 1.723-3.122 1.8-3.17-0.98-1.434-2.51-1.63-3.06-1.653-1.303-.132-2.542.767-3.203.767-.66 0-1.68-.748-2.767-.727-1.424.021-2.74.827-3.47 2.104-1.48 2.567-.378 6.37 1.063 8.454.704 1.021 1.545 2.166 2.646 2.125 1.06-.042 1.463-.686 2.747-.686 1.283 0 1.647.686 2.767.665 1.144-.021 1.868-1.042 2.567-2.067.81-1.187 1.144-2.334 1.164-2.393-.026-.011-2.234-.858-2.254-3.419zM15.09 6.25c.584-.708.978-1.688.87-2.667-.84.034-1.856.56-2.46 1.267-.542.626-1.017 1.63-.89 2.588.936.073 1.895-.478 2.48-1.188z"/></svg>
+                    App Store
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.mirraai.stylist" class="store-btn store-btn--gold" target="_blank" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.6a1 1 0 0 0-.5.87v15.06a1 1 0 0 0 .5.87l8.53-8.4-8.53-8.4zm10.02 8.4 2.6 2.56 3.02-1.72c.83-.47.83-1.66 0-2.13l-3.02-1.72-2.6 2.56v.45zm-1.06-1.06-8.6-8.47 10.7 6.1-2.1 2.37zm0 2.12 2.1 2.37-10.7 6.1 8.6-8.47z"/></svg>
+                    Play Store
+                </a>
+            </div>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
         <!-- Hero Section -->
-        <section class="hero">
-            <h1 class="brand-name">Mirra</h1>
-            <h2 class="hero-title">
-                Your personal stylist, in your pocket.
-            </h2>
-            <p class="hero-description">
-                Organize your wardrobe and know exactly<br>
-                what to wear every day.
-            </p>
-            
-            <!-- App Preview -->
-            <div class="app-preview">
-                <img src="assets/images/Phone.png" alt="Mirra App Interface" class="app-image">
-            </div>
-            
-            <!-- Signup Counter -->
-            <div class="signup-counter magic-pill">
-                <span class="counter-icon"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="18" fill="#6b7c5a"/><path d="M11 19.5L16 24.5L25 15.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span class="counter-main-text">
-                    <span class="counter-number" id="signupCount"></span> people have already joined. Be part of it.<br>
-                    <!-- <span class="counter-sub-text">Be part of it.</span> -->
-                </span>
-                <span class="counter-sparkle sparkle-1">✨</span>
-                <span class="counter-sparkle sparkle-2">✨</span>
-                <span class="counter-sparkle sparkle-3">✨</span>
-            </div>
-            
-            <!-- Email Signup -->
-            <div class="email-signup">
-                <div class="email-input-container">
-                    <input type="email" placeholder="Your email address" class="email-input">
-                    <button class="join-button">Join</button>
-                </div>
-                <p class="signup-text">"Join now to get early access."</p>
-            </div>
-        </section>
-        
-        <!-- Photo to Wardrobe Section -->
-        <section class="photo-wardrobe-section">
-            <h2 class="photo-wardrobe-title">Turn a photo into your digital wardrobe</h2>
-            <p class="photo-wardrobe-description">
-                Upload a photo of your outfit, Mirra automatically<br>
-                detects and separates each piece.
-            </p>
-            
-            <div class="phone-mockups">
-                <div class="phone-mockup left-phone">
-                    <div class="outfit-carousel-container" aria-label="Outfit photo examples">
-                        <div class="outfit-carousel" id="outfitCarousel">
-                            <img src="assets/images/style-photo-1.png" alt="Black strappy flat sandal" class="outfit-carousel-image">
-                            <img src="assets/images/style-photo-2.png" alt="Black t-shirt" class="outfit-carousel-image">
-                            <img src="assets/images/style-photo-3.png" alt="Casual outfit with black top and denim jeans" class="outfit-carousel-image">
-                            <img src="assets/images/style-photo-4.png" alt="Black dress with slit and heels" class="outfit-carousel-image">
-                            <img src="assets/images/style-photo-5.png" alt="Black sandals on patterned floor" class="outfit-carousel-image">
-                            <img src="assets/images/style-photo-6.png" alt="Yellow button-down dress on bed" class="outfit-carousel-image">
-                            <img src="assets/images/style-photo-7.png" alt="Red kurti with jeans" class="outfit-carousel-image">
-                            <img src="assets/images/style-photo-8.png" alt="White embroidered kurti with jeans" class="outfit-carousel-image">
-                            <img src="assets/images/style-photo-9.png" alt="Black trousers on bed" class="outfit-carousel-image">
-                        </div>
+        <section class="hero-v2">
+            <div class="hero-v2__inner">
+                <div class="hero-v2__content">
+                    <h1 class="hero-v2__title">Shop smarter.<br>Start from<br><em>your wardrobe.</em></h1>
+                    <p class="hero-v2__desc">Mirra imports your past purchases from Myntra, Ajio and Amazon — then your <strong>AI stylist</strong> tells you what to wear today, and what's actually missing from your closet.</p>
+
+                    <div class="store-buttons">
+                        <a href="https://apps.apple.com/in/app/mirra-ai-shopping-assistant/id6781397977" class="store-pill store-pill--dark" target="_blank" rel="noopener">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.536c-.02-2.11 1.723-3.122 1.8-3.17-0.98-1.434-2.51-1.63-3.06-1.653-1.303-.132-2.542.767-3.203.767-.66 0-1.68-.748-2.767-.727-1.424.021-2.74.827-3.47 2.104-1.48 2.567-.378 6.37 1.063 8.454.704 1.021 1.545 2.166 2.646 2.125 1.06-.042 1.463-.686 2.747-.686 1.283 0 1.647.686 2.767.665 1.144-.021 1.868-1.042 2.567-2.067.81-1.187 1.144-2.334 1.164-2.393-.026-.011-2.234-.858-2.254-3.419zM15.09 6.25c.584-.708.978-1.688.87-2.667-.84.034-1.856.56-2.46 1.267-.542.626-1.017 1.63-.89 2.588.936.073 1.895-.478 2.48-1.188z"/></svg>
+                            <span>Download on the<strong>App Store</strong></span>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.mirraai.stylist" class="store-pill store-pill--outline" target="_blank" rel="noopener">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.6a1 1 0 0 0-.5.87v15.06a1 1 0 0 0 .5.87l8.53-8.4-8.53-8.4zm10.02 8.4 2.6 2.56 3.02-1.72c.83-.47.83-1.66 0-2.13l-3.02-1.72-2.6 2.56v.45zm-1.06-1.06-8.6-8.47 10.7 6.1-2.1 2.37zm0 2.12 2.1 2.37-10.7 6.1 8.6-8.47z"/></svg>
+                            <span>Get it on<strong>Google Play</strong></span>
+                        </a>
                     </div>
                 </div>
-                <div class="arrow-container">
-                    <div class="transfer-ui" aria-label="Mirra processing flow">
-                        <span class="transfer-label">Extracting items</span>
-                        <div class="transfer-dots" aria-hidden="true">
-                            <span></span>
-                            <span></span>
-                            <span></span>
+
+                <div class="hero-v2__phones">
+                    <div class="phone-frame phone-frame--hero-chat">
+                        <div class="phone-frame__notch"></div>
+                        <div class="phone-frame__screen">
+                            <img src="assets/images/Hero_Section_Chat.png" alt="Mirra AI stylist chat suggesting tops that match a pair of jeans">
                         </div>
                     </div>
-                </div>
-                <div class="phone-mockup right-phone">
-                    <div class="phone-frame-wrapper">
-                        <video class="phone-video" autoplay muted loop playsinline>
-                            <source src="assets/images/phone_video_f5f1eb.mp4" type="video/mp4">
-                        </video>
-                        <!-- <img src="assets/images/mock_phone.png" class="phone-frame-img" alt="" draggable="false"> -->
-                    </div>
-                </div>
-            </div>
-            
-            <p class="compatibility-text">Works with mirror selfies, outfit photos, and flat lays.</p>
-        </section>
-        
-        <!-- Features Section -->
-        <section class="features">
-            <div class="flip-card-container">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="feature-card-content">
-                                <div class="feature-icon wardrobe-icon">
-                                    <img src="assets/icons/Wardrobe.png" alt="Wardrobe Icon" style="height: 100px; width: 100px;">
-                                </div>
-                                <h3 class="feature-title">Digitize Your Wardrobe</h3>
-                                <p class="feature-description">Add and organize all your clothes.</p>
-                                <p class="tap-hint">Tap to see how it works</p>
-                            </div>
-                        </div>
-                        <div class="flip-card-back">
-                            <img src="assets/images/DYW.png" alt="Digitize Your Wardrobe Back" class="flip-card-image">
+                    <div class="phone-frame phone-frame--hero-wardrobe">
+                        <div class="phone-frame__notch"></div>
+                        <div class="phone-frame__screen">
+                            <img src="assets/images/Hero_Section_Wardrobe.jpg" alt="Your wardrobe organized by category inside the Mirra app">
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="flip-card-container">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="feature-card-content">
-                                <div class="feature-icon suggestions-icon">
-                                    <img src="assets/icons/Calendar.png" alt="Calendar Icon" style="height: 70px; width: 70px;">
-                                </div>
-                                <h3 class="feature-title">Daily Outfit Suggestions</h3>
-                                <p class="feature-description">Get recommendations based on your style.</p>
-                                <p class="tap-hint">Tap to see how it works</p>
-                            </div>
-                        </div>
-                        <div class="flip-card-back">
-                            <img src="assets/images/DOS.png" alt="Daily Outfit Suggestions Back" class="flip-card-image">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="flip-card-container">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="feature-card-content">
-                                <div class="feature-icon sustainability-icon">
-                                    <img src="assets/icons/Outfit.png" alt="Outfit Icon" style="height: 70px; width: 70px;">
-                                </div>
-                                <h3 class="feature-title">Build Better Outfits Effortlessly</h3>
-                                <p class="feature-description">Mix and match pieces from your wardrobe.</p>
-                                <p class="tap-hint">Tap to see how it works</p>
-                            </div>
-                        </div>
-                        <div class="flip-card-back">
-                            <img src="assets/images/BBO.png" alt="Build Better Outfits Back" class="flip-card-image">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Quote Section -->
-        <section class="quote-section">
-            <blockquote class="main-quote">
-                "Your wardrobe already has great outfits.<br>
-                Mirra helps you find them."
-            </blockquote>
-            
-            <!-- Bottom Email Signup -->
-            <!-- <div class="bottom-signup">
-                <input type="email" placeholder="Your email address" class="email-input-bottom">
-                <button class="get-access-button">Get Early Access</button>
-            </div> -->
         </section>
 
-        <!-- Preferences Section -->
-        <section class="preferences-section">
-            <h2 class="preferences-title">What would you like Mirra to do ?</h2>
-            
-            <div class="preferences-grid">
-                <div class="preference-card">
-                    <span class="preference-text">AI Outfit Suggestions</span>
+        <!-- Step 01 — Import -->
+        <section class="step-section" id="import">
+            <div class="step-grid">
+                <div class="step-text">
+                    <p class="step-eyebrow">Import</p>
+                    <h2 class="step-title">Your entire purchase history, <em>in seconds.</em></h2>
+                    <p class="step-desc">Sync your past purchases from your favourite shopping apps and build your wardrobe instantly with AI.</p>
+                    <div class="platform-badges">
+                        <span class="badge">Myntra</span>
+                        <span class="badge">Ajio</span>
+                        <span class="badge">Amazon</span>
+                        <span class="badge">Nykaa Fashion</span>
+                        <span class="badge">Flipkart</span>
+                        <span class="badge">Gallery Upload</span>
+                    </div>
                 </div>
-                
-                <div class="preference-card">
-                    <span class="preference-text">Weather Based Outfits</span>
-                </div>
-                
-                <div class="preference-card">
-                    <span class="preference-text">Packing Planner</span>
-                </div>
-                
-                <div class="preference-card">
-                    <span class="preference-text">Style Analytics</span>
-                </div>
-            </div>
-            
-            <div class="other-idea-input">
-                <div class="idea-input-container">
-                    <span class="lightbulb-icon">💡</span>
-                    <input type="text" placeholder="Other idea..." class="idea-input">
+                <div class="step-visual step-visual--card">
+                    <div class="floating-card">
+                        <img src="assets/images/Import.jpg" alt="Import your old purchases screen, syncing items from shopping apps">
+                    </div>
                 </div>
             </div>
-            
-            <button class="join-early-access-btn">Send Your Idea</button>
+        </section>
+
+        <!-- Step 02 — Style -->
+        <section class="step-section step-section--reverse" id="style">
+            <div class="step-grid">
+                <div class="step-visual">
+                    <div class="phone-frame phone-frame--tall">
+                        <div class="phone-frame__notch"></div>
+                        <div class="phone-frame__screen phone-frame__screen--inset-top">
+                            <img src="assets/images/2ndChat.jpg" alt="Mirra AI stylist chat suggesting a trouser to pair with a top">
+                        </div>
+                    </div>
+                </div>
+                <div class="step-text">
+                    <p class="step-eyebrow">Style</p>
+                    <h2 class="step-title">An AI stylist who <em>knows what you own.</em></h2>
+                    <p class="step-desc">Tell Mirra where you're going, what the weather is, what mood you're in. She builds your outfit from clothes already in your wardrobe — and only recommends something new when you're genuinely missing a piece. <strong>Not browsing. Styling.</strong></p>
+                    <div class="tag-pills">
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg>Outfit generation</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17a4 4 0 1 1 .74-7.93A5.5 5.5 0 0 1 18 11a3.5 3.5 0 0 1 0 7H7Z"/></svg>Weather-aware</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.5-3.5"/></svg>Gap detection</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M8 3v3M16 3v3"/></svg>Occasion styling</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 03 — Shop -->
+        <section class="step-section" id="shop">
+            <div class="step-grid">
+                <div class="step-text">
+                    <p class="step-eyebrow">Shop</p>
+                    <h2 class="step-title">Only see what <em>actually fits</em> your wardrobe.</h2>
+                    <p class="step-desc">When Mirra recommends something new, every product is chosen because it completes a specific gap in your existing closet.</p>
+                    <p class="step-desc"><strong>No endless scrolling. No impulse buys.</strong><br>Just targeted SKUs that make your wardrobe work better.</p>
+                    <div class="tag-pills">
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg>Gap-based recommendations</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Partner brand catalogue</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9l3 3v13H6V4Z"/><path d="M10 4v4h4"/></svg>Complete the look</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.5-3.5"/></svg>Browse made easy</span>
+                    </div>
+                </div>
+                <div class="step-visual">
+                    <div class="phone-frame phone-frame--tall">
+                        <div class="phone-frame__notch"></div>
+                        <div class="phone-frame__screen">
+                            <img src="assets/images/1stShopping.jpg" alt="Tops recommended to complete gaps in your wardrobe">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The AI shopping experience -->
+        <section class="step-section step-section--reverse">
+            <div class="step-grid">
+                <div class="step-visual">
+                    <div class="phone-frame phone-frame--tall">
+                        <div class="phone-frame__notch"></div>
+                        <div class="phone-frame__screen phone-frame__screen--inset-top">
+                            <img src="assets/images/2ndShopping.jpg" alt="Search results personalized to your style and occasions">
+                        </div>
+                    </div>
+                </div>
+                <div class="step-text">
+                    <p class="step-eyebrow">The AI shopping experience</p>
+                    <h2 class="step-title">Curated like a stylist, <em>personalized</em> like you.</h2>
+                    <p class="step-desc">From ethnic wear to everyday essentials, Mirra understands your style, occasions, and preferences to show you what truly fits you.</p>
+                    <div class="tag-pills">
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg>Understands your style</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M8 3v3M16 3v3"/></svg>Gets your occasions</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9l3 3v13H6V4Z"/><path d="M10 4v4h4"/></svg>Matches your wardrobe</span>
+                        <span class="tag-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Saves you time</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The full loop -->
+        <section class="loop-band">
+            <p class="loop-eyebrow">The full loop</p>
+            <h2 class="loop-title">Wardrobe intelligence <em>that compounds.</em></h2>
+            <div class="loop-steps">
+                <div class="loop-step">
+                    <span class="loop-num">01</span>
+                    <h3>Import</h3>
+                    <p>Connect your shopping apps. Every past order becomes a wardrobe item — tagged, classified, ready.</p>
+                </div>
+                <div class="loop-step">
+                    <span class="loop-num">02</span>
+                    <h3>Style</h3>
+                    <p>Tell Mirra your occasion, weather, or mood. Get an outfit built from what you already own.</p>
+                </div>
+                <div class="loop-step">
+                    <span class="loop-num">03</span>
+                    <h3>Shop</h3>
+                    <p>See only the items that complete your wardrobe — not a feed of everything the internet sells.</p>
+                </div>
+                <div class="loop-step">
+                    <span class="loop-num">04</span>
+                    <h3>Recycle</h3>
+                    <p>Schedule pickups for unused items. Earn wallet credits. Close the loop on fashion waste.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <!-- <section class="testimonials-section">
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+                    <p class="testimonial-quote">"I've been buying clothes for 4 years on Myntra and never knew how many items I actually own. Mirra showed me in 40 seconds."</p>
+                    <div class="testimonial-author">
+                        <span class="testimonial-avatar testimonial-avatar--green">P</span>
+                        <div class="testimonial-author-info">
+                            <strong>Priya R.</strong>
+                            <span>Koramangala, Bangalore</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+                    <p class="testimonial-quote">"The chat is genuinely useful. I said 'rooftop dinner, might get windy' and it pulled together a look I'd never have thought of from my own clothes."</p>
+                    <div class="testimonial-author">
+                        <span class="testimonial-avatar testimonial-avatar--gold">S</span>
+                        <div class="testimonial-author-info">
+                            <strong>Shriya M.</strong>
+                            <span>Bandra, Mumbai</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+                    <p class="testimonial-quote">"Finally an app that doesn't just push me to buy more. The gap detection is crazy — it found exactly why my outfits never feel complete."</p>
+                    <div class="testimonial-author">
+                        <span class="testimonial-avatar testimonial-avatar--sage">A</span>
+                        <div class="testimonial-author-info">
+                            <strong>Ananya K.</strong>
+                            <span>HSR Layout, Bangalore</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Final CTA -->
+        <section class="final-cta">
+            <p class="final-cta-eyebrow">Download now — it's free</p>
+            <h2 class="final-cta-title">Your wardrobe is already full.<br><em>Now make it work.</em></h2>
+            <p class="final-cta-desc">Start with what you own. Style smarter. Shop only what's missing.</p>
+
+            <div class="final-cta-buttons">
+                <a href="https://apps.apple.com/in/app/mirra-ai-shopping-assistant/id6781397977" class="store-pill store-pill--outline-dark" target="_blank" rel="noopener">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.536c-.02-2.11 1.723-3.122 1.8-3.17-0.98-1.434-2.51-1.63-3.06-1.653-1.303-.132-2.542.767-3.203.767-.66 0-1.68-.748-2.767-.727-1.424.021-2.74.827-3.47 2.104-1.48 2.567-.378 6.37 1.063 8.454.704 1.021 1.545 2.166 2.646 2.125 1.06-.042 1.463-.686 2.747-.686 1.283 0 1.647.686 2.767.665 1.144-.021 1.868-1.042 2.567-2.067.81-1.187 1.144-2.334 1.164-2.393-.026-.011-2.234-.858-2.254-3.419zM15.09 6.25c.584-.708.978-1.688.87-2.667-.84.034-1.856.56-2.46 1.267-.542.626-1.017 1.63-.89 2.588.936.073 1.895-.478 2.48-1.188z"/></svg>
+                    <span>Download on the<strong>App Store</strong></span>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.mirraai.stylist" class="store-pill store-pill--outline-dark" target="_blank" rel="noopener">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.6a1 1 0 0 0-.5.87v15.06a1 1 0 0 0 .5.87l8.53-8.4-8.53-8.4zm10.02 8.4 2.6 2.56 3.02-1.72c.83-.47.83-1.66 0-2.13l-3.02-1.72-2.6 2.56v.45zm-1.06-1.06-8.6-8.47 10.7 6.1-2.1 2.37zm0 2.12 2.1 2.37-10.7 6.1 8.6-8.47z"/></svg>
+                    <span>Get it on<strong>Google Play</strong></span>
+                </a>
+            </div>
+
+            <div class="final-cta-badges">
+                <div class="final-cta-badge">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+                    <div>
+                        <strong>Secure &amp; private</strong>
+                        <span>Your data is always safe</span>
+                    </div>
+                </div>
+                <div class="final-cta-badge">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg>
+                    <div>
+                        <strong>AI that understands you</strong>
+                        <span>Personalised to your style</span>
+                    </div>
+                </div>
+                <div class="final-cta-badge">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9l3 3v13H6V4Z"/><path d="M10 4v4h4"/></svg>
+                    <div>
+                        <strong>No more guesswork</strong>
+                        <span>Only buy what you need</span>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
-        <span class="footer-separator">·</span>
-        <a href="terms-and-conditions.html" class="footer-link">Terms and Conditions</a>
-        <span class="footer-separator">·</span>
-        <a href="delete-account.html" class="footer-link">Delete Account</a>
-        <div class="footer-contact">
-            <span class="footer-contact-label">Contact Us</span>
-            <span class="footer-separator">·</span>
-            <a href="mailto:support.mirraai@gmail.com" class="footer-link">support.mirraai@gmail.com</a>
+        <div class="footer-inner">
+            <a href="#" class="footer-logo"><img src="assets/images/KogoDarkBackground-cropped.png" alt="Mirra AI" class="footer-logo-img"></a>
+
+            <div class="footer-links">
+                <a href="mailto:support.mirraai@gmail.com">support.mirraai@gmail.com</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="terms-and-conditions.html">Terms</a>
+                <a href="delete-account.html">Delete Account</a>
+            </div>
+
+            <p class="footer-copyright">© <span id="footerYear"></span> Threadmind Labs Pvt. Ltd.</p>
         </div>
     </footer>
 
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=4"></script>
 </body>
 </html>
